@@ -83,7 +83,7 @@ function test_input($data) {
 
 <div class="container mt-3">
     <h2>idk</h2>
-    <form action="/emailer.php" method="post">
+    <form action="/index.php" method="post">
         <div class="mb-3 mt-3">
             <label for="fname">name</label>
             <input type="text" class="form-control" id="fname" name="fname" value="">
@@ -95,6 +95,10 @@ function test_input($data) {
         <div class="mb-3">
             <label for="email">Email</label>
             <input type="text" class="form-control" id="email" name="email" value="">
+        </div>
+        <div class="mb-3">
+            <label for="comment">comment</label>
+            <input type="text" class="form-control" id="comment" name="comment" value="">
         </div>
         <input type="submit" class="btn btn-primary" id="doit" value="JUST DO IT">
     </form>
@@ -121,24 +125,21 @@ echo 'Client IP making the request: ' . $_SERVER['REMOTE_ADDR'];
 ?>
 
 <?php
-$to = "youremail@youremail.youremail";
+$to = "test@test.php.e.lozx.co.uk";
 $subject = "HTML email";
 
 $message = "
 <html>
 <head>
-<title>HTML email</title>
+<title>{$email} has emaild you</title>
 </head>
 <body>
-<p>This email contains HTML Tags!</p>
+<p>comment from {$email}: {$comment}</p>
+<p> {$_SERVER['REMOTE_ADDR']} </p>
 <table>
 <tr>
-<th>Firstname</th>
-<th>Lastname</th>
-</tr>
-<tr>
-<td>John</td>
-<td>Doe</td>
+<th>{$lname}</th>
+<th>{$fname}</th>
 </tr>
 </table>
 </body>
@@ -150,11 +151,9 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
-$headers .= 'From: <{$email}>' . "\r\n";
+$headers .= "From: {$email}" . "\r\n";
 $headers .= 'Cc: myboss@example.com' . "\r\n";
 
 mail($to,$subject,$message,$headers);
 include "";
 ?>
-
-
